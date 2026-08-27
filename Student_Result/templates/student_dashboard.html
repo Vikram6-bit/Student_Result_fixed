@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Dashboard</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7fc;
+        }
+
+        .header {
+            background: #3564df;
+            color: white;
+            padding: 25px 50px;
+        }
+
+        .header h1 {
+            margin: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .student-info {
+            background: #eef3ff;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+
+        .student-info p {
+            font-size: 19px;
+        }
+
+        .logout {
+            display: inline-block;
+            padding: 12px 25px;
+            background: #dc3545;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            padding: 14px 16px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        thead {
+            background: #3564df;
+            color: white;
+        }
+
+        .no-results {
+            padding: 20px;
+            color: #667085;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="header">
+    <h1>Student Dashboard</h1>
+</div>
+
+<div class="container">
+
+    <h2>Welcome, {{ student.name }}</h2>
+
+    <div class="student-info">
+
+        <p>
+            <strong>Name:</strong>
+            {{ student.name }}
+        </p>
+
+        <p>
+            <strong>Roll Number:</strong>
+            {{ student.roll_no }}
+        </p>
+
+        <p>
+            <strong>Email:</strong>
+            {{ student.email }}
+        </p>
+
+        {% if student.class_name %}
+        <p>
+            <strong>Class:</strong>
+            {{ student.class_name }}
+        </p>
+        {% endif %}
+
+    </div>
+
+    <h3>My Results</h3>
+
+    {% if results %}
+
+    <table>
+        <thead>
+            <tr>
+                <th>Python</th>
+                <th>SQL</th>
+                <th>HTML</th>
+                <th>Total</th>
+                <th>Percentage</th>
+                <th>Grade</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for result in results %}
+            <tr>
+                <td>{{ result.python }}</td>
+                <td>{{ result.sql }}</td>
+                <td>{{ result.html }}</td>
+                <td>{{ result.total }}</td>
+                <td>{{ "%.2f"|format(result.percentage) }}%</td>
+                <td>{{ result.grade }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% else %}
+
+    <p class="no-results">No results have been published yet.</p>
+
+    {% endif %}
+
+    <br>
+
+    <a href="{{ url_for('logout') }}" class="logout">
+        Logout
+    </a>
+
+</div>
+
+</body>
+</html>

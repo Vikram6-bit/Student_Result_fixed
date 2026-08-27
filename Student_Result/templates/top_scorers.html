@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Top Scorers</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f1f5f9;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background: #3159c9;
+            color: white;
+            padding: 20px 40px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #243b7a;
+            margin-bottom: 40px;
+        }
+
+        .rank-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .rank-card {
+            background: white;
+            padding: 20px 30px;
+            border-radius: 14px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .rank-number {
+            font-size: 28px;
+            font-weight: bold;
+            color: #3159c9;
+            width: 50px;
+        }
+
+        .rank-name {
+            flex: 1;
+            font-size: 20px;
+            color: #243b7a;
+        }
+
+        .rank-roll {
+            color: #64748b;
+            font-size: 15px;
+        }
+
+        .rank-total {
+            font-size: 22px;
+            font-weight: bold;
+            color: #16a085;
+        }
+
+        .no-data {
+            text-align: center;
+            color: #64748b;
+            font-size: 18px;
+            margin-top: 40px;
+        }
+
+        .back {
+            display: block;
+            text-align: center;
+            margin-top: 40px;
+            color: #3159c9;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="navbar">
+        <h1 style="color:white; text-align:left;">Top Scorers</h1>
+    </div>
+
+    <div class="container">
+
+        {% if top_students %}
+
+        <div class="rank-list">
+
+            {% for student in top_students %}
+
+            <div class="rank-card">
+
+                <div class="rank-number">
+                    {% if loop.index == 1 %}🥇
+                    {% elif loop.index == 2 %}🥈
+                    {% elif loop.index == 3 %}🥉
+                    {% else %}#{{ loop.index }}
+                    {% endif %}
+                </div>
+
+                <div class="rank-name">
+                    {{ student.name }}
+                    <br>
+                    <span class="rank-roll">Roll No: {{ student.roll_no }}</span>
+                </div>
+
+                <div class="rank-total">
+                    {{ student.total }} / 300
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        {% else %}
+
+        <p class="no-data">No results available yet.</p>
+
+        {% endif %}
+
+        <a href="{{ url_for('admin_dashboard') }}" class="back">
+            ← Back to Dashboard
+        </a>
+
+    </div>
+
+</body>
+</html>

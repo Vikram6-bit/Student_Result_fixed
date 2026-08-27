@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Dashboard</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #f1f5f9;
+        }
+
+        .navbar {
+            background: #3159c9;
+            color: white;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar h1 {
+            font-size: 28px;
+        }
+
+        .logout {
+            background: white;
+            color: #3159c9;
+            padding: 10px 18px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        .welcome {
+            font-size: 36px;
+            color: #243b7a;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #64748b;
+            font-size: 20px;
+            margin-bottom: 40px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .card {
+            background: white;
+            padding: 35px;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+
+        .card h2 {
+            color: #3159c9;
+            margin-bottom: 15px;
+        }
+
+        .card p {
+            color: #64748b;
+            margin-bottom: 25px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 20px;
+            background: #3159c9;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        @media (max-width: 800px) {
+            .cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="navbar">
+
+        <h1>Admin Dashboard</h1>
+
+        <a href="{{ url_for('logout') }}" class="logout">
+            Logout
+        </a>
+
+    </div>
+
+    <div class="container">
+
+        <h1 class="welcome">
+            Welcome, {{ session.get("username") }}
+        </h1>
+
+        <p class="subtitle">
+            Student Result Management System - Admin Panel
+        </p>
+
+        <div class="cards">
+
+            <div class="card">
+                <h2>Students</h2>
+                <p>View and manage student records.</p>
+
+                <a href="{{ url_for('students') }}" class="btn">
+                    View Students
+                </a>
+            </div>
+
+            <div class="card">
+                <h2>Add Student</h2>
+                <p>Add a new student to the system.</p>
+
+                <a href="{{ url_for('add_student') }}" class="btn">
+                    Add Student
+                </a>
+            </div>
+
+            <div class="card">
+                <h2>Results</h2>
+                <p>Manage student examination results.</p>
+
+                <a href="{{ url_for('view_results') }}" class="btn">
+                    View Results
+                </a>
+            </div>
+
+            <div class="card">
+                <h2>Top Scorers</h2>
+                <p>See the top 5 performing students.</p>
+
+                <a href="{{ url_for('top_scorers') }}" class="btn">
+                    View Leaderboard
+                </a>
+            </div>
+
+        </div>
+
+        <h2 style="margin-top:50px; color:#243b7a;">Class Average Marks</h2>
+
+        <div style="max-width:600px; background:white; padding:25px; border-radius:16px; box-shadow:0 8px 25px rgba(0,0,0,0.08);">
+            <canvas id="marksChart"></canvas>
+        </div>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+
+    <script>
+        const ctx = document.getElementById('marksChart').getContext('2d');
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Python', 'SQL', 'HTML'],
+                datasets: [{
+                    label: 'Average Marks',
+                    data: [{{ avg_python }}, {{ avg_sql }}, {{ avg_html }}],
+                    backgroundColor: ['#3159c9', '#16a085', '#f39c12']
+                }]
+            },
+            options: {
+                scales: {
+                    y: { beginAtZero: true, max: 100 }
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>

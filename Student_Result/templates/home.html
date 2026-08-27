@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Result Management System</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #eef2ff, #f8fafc);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background: white;
+            width: 700px;
+            padding: 60px;
+            border-radius: 25px;
+            text-align: center;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+        }
+
+        h1 {
+            color: #263b63;
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+
+        p {
+            color: #667085;
+            font-size: 19px;
+            margin-bottom: 40px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        a {
+            text-decoration: none;
+            color: white;
+            padding: 18px 35px;
+            border-radius: 10px;
+            font-size: 19px;
+            font-weight: bold;
+        }
+
+        .admin {
+            background: #3564df;
+        }
+
+        .student {
+            background: #16a085;
+        }
+
+        a:hover {
+            opacity: 0.85;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Student Result Management System</h1>
+
+    <p>Select how you want to continue</p>
+
+    <div class="buttons">
+
+        <a href="{{ url_for('admin_login') }}" class="admin">
+            Admin Login
+        </a>
+
+        <a href="{{ url_for('student_login') }}" class="student">
+            Student Login
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+</html>

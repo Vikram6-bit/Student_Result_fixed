@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Add Student Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+    <h1>Add Student Result</h1>
+
+
+    <form method="POST" action="/add_result">
+
+
+        <label>
+            Select Student:
+        </label>
+
+
+        <select name="student_id" required>
+
+            <option value="">
+                Select Student
+            </option>
+
+
+            {% for student in students %}
+
+            <option value="{{ student.id }}">
+
+                {{ student.name }}
+                - Roll No: {{ student.roll_no }}
+
+            </option>
+
+            {% endfor %}
+
+        </select>
+
+
+        <br><br>
+
+
+        <label>
+            Python Marks:
+        </label>
+
+        <input
+            type="number"
+            name="python"
+            min="0"
+            max="100"
+            required
+        >
+
+
+        <br><br>
+
+
+        <label>
+            SQL Marks:
+        </label>
+
+        <input
+            type="number"
+            name="sql_marks"
+            min="0"
+            max="100"
+            required
+        >
+
+
+        <br><br>
+
+
+        <label>
+            HTML Marks:
+        </label>
+
+        <input
+            type="number"
+            name="html"
+            min="0"
+            max="100"
+            required
+        >
+
+
+        <br><br>
+
+
+        <button type="submit">
+            Save Result
+        </button>
+
+
+    </form>
+
+
+    <br><br>
+
+
+    <a href="/results">
+        View Student Results
+    </a>
+
+
+    <br><br>
+
+
+    <a href="/students">
+        View Students
+    </a>
+
+
+    <br><br>
+
+
+    <a href="/">
+        Home
+    </a>
+
+
+</body>
+
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<h1>Edit Result</h1>
+
+<form method="POST">
+
+    <label>Python Marks:</label>
+    <input
+        type="number"
+        name="python"
+        value="{{ result.python }}"
+        required
+    >
+
+    <br><br>
+
+    <label>SQL Marks:</label>
+    <input
+        type="number"
+        name="sql_marks"
+        value="{{ result.sql_marks }}"
+        required
+    >
+
+    <br><br>
+
+    <label>HTML Marks:</label>
+    <input
+        type="number"
+        name="html"
+        value="{{ result.html }}"
+        required
+    >
+
+    <br><br>
+
+    <button type="submit">Update Result</button>
+
+</form>
+
+<br>
+
+<a href="{{ url_for('results') }}">Back to Results</a>
+
+</body>
+</html>

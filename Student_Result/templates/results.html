@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Student Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <style>
+        #resultSearch {
+            padding: 12px 16px;
+            font-size: 16px;
+            width: 300px;
+            max-width: 100%;
+            margin-bottom: 20px;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <h1>Student Results</h1>
+
+    <input
+        type="text"
+        id="resultSearch"
+        placeholder="Search by name or roll number..."
+        onkeyup="filterResults()"
+    >
+
+    <table id="resultsTable" border="1" cellpadding="15">
+
+        <tr>
+
+            <th>ID</th>
+
+            <th>Name</th>
+
+            <th>Roll No</th>
+
+            <th>Python</th>
+
+            <th>SQL</th>
+
+            <th>HTML</th>
+
+            <th>Total</th>
+
+            <th>Percentage</th>
+
+            <th>Grade</th>
+
+            <th>Action</th>
+
+        </tr>
+
+
+        {% for result in results %}
+
+        <tr>
+
+            <td>
+                {{ result.id }}
+            </td>
+
+            <td>
+                {{ result.name }}
+            </td>
+
+            <td>
+                {{ result.roll_no }}
+            </td>
+
+            <td>
+                {{ result.python }}
+            </td>
+
+            <td>
+                {{ result.sql }}
+            </td>
+
+            <td>
+                {{ result.html }}
+            </td>
+
+            <td>
+                {{ result.total }}
+            </td>
+
+            <td>
+                {{ "%.2f"|format(result.percentage) }}%
+            </td>
+
+            <td>
+                {{ result.grade }}
+            </td>
+
+            <td>
+                <a href="{{ url_for('edit_result', result_id=result.id) }}">Edit</a>
+                |
+                <a href="{{ url_for('delete_result', result_id=result.id) }}"
+                   onclick="return confirm('Are you sure you want to delete this result?');">
+                   Delete
+                </a>
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+
+    <br><br>
+
+
+    <a href="{{ url_for('download_results') }}">
+        ⬇ Download Results as CSV
+    </a>
+
+
+    <br><br>
+
+
+    <a href="/add_result">
+        Add New Result
+    </a>
+
+
+    <br><br>
+
+
+    <a href="/students">
+        View Students
+    </a>
+
+
+    <br><br>
+
+
+    <a href="/">
+        Home
+    </a>
+
+
+    <script>
+        function filterResults() {
+            const input = document.getElementById("resultSearch");
+            const filter = input.value.toLowerCase();
+            const table = document.getElementById("resultsTable");
+            const rows = table.getElementsByTagName("tr");
+
+            for (let i = 1; i < rows.length; i++) {
+                const nameCell = rows[i].getElementsByTagName("td")[1];
+                const rollCell = rows[i].getElementsByTagName("td")[2];
+
+                if (nameCell && rollCell) {
+                    const name = nameCell.textContent.toLowerCase();
+                    const roll = rollCell.textContent.toLowerCase();
+
+                    if (name.includes(filter) || roll.includes(filter)) {
+                        rows[i].style.display = "";
+                    } else {
+                        rows[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
+
+</body>
+
+</html>
